@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { AppError } from "./erroHandler";
 import { ZodError, ZodSchema } from "zod";
 
 export default function validarBody(schema: ZodSchema){
@@ -10,7 +9,10 @@ export default function validarBody(schema: ZodSchema){
         } catch (error:any) {
             if(error instanceof ZodError){
                 return res.status(400).json({
-                    error:error.issues.map(issue=>issue.message)
+                    error:error.issues.map(issue=>({
+                        field:issue.path[0],
+                        message:issue.message
+                    }))
                 })
             }
         }

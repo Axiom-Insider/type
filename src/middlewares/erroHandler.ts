@@ -22,6 +22,9 @@ const errorHandler = (error:any, req:Request, res:Response, next:NextFunction):v
     // Erros do Prisma
   if (error.code) {
     switch (error.code) {
+      case'P1000':
+        res.status(500).json({ error: `Não foi possível se conectar ao banco` });
+        return;
       case 'P2002':
         res.status(409).json({ error: `Campo duplicado: ${error.meta?.target}` });
         return;

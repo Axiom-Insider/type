@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import ClientesService from "./clientes.service";
 
 export default class ClientesController {
-  private service: ClientesService = new ClientesService();
+  private readonly service: ClientesService = new ClientesService();
 
   public create = async (req: Request, res: Response, next:NextFunction): Promise<void> => {
     try {
