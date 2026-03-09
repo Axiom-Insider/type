@@ -1,11 +1,14 @@
 import express from 'express';
 import  Database  from "./config/database"
 import routes from './routes';
+import errorHandler from './middlewares/erroHandler';
 const app = express();
 
 
 app.use(express.json());
 app.use('/api', routes);
+
+app.use(errorHandler)
 
 const db = Database.getInstance()
 
