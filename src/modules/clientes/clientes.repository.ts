@@ -1,6 +1,6 @@
 import Database from "../../config/database";
 import {Clientes} from "@prisma/client"
-import {ClientesDTO, CreateClienteDTO} from "../../types/index"
+import { ClienteDTO, CreateClienteDTO } from "./clientes.dto";
 
 export default class ClientesRepository{
     private db = Database.getInstance().client;
@@ -10,8 +10,9 @@ export default class ClientesRepository{
     }
 
 
-    async findByCpf(cpf:string):Promise<ClientesDTO | null>{
-        return this.db.clientes.findUnique({where:{cpf}})
+    async findByCpf(cpf_body:string):Promise<Clientes | null>{
+       return await this.db.clientes.findUnique({where:{cpf:cpf_body}})
+
     }
 
     async findAll():Promise<Clientes[]>{
